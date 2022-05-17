@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MVC_workshop.Areas.Identity.Data
+@inject UserManager<MVC_workshopUser> UserManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Teacher"))
+    {
+        <h1 class="display-4">Teacher Profile</h1>
+    }
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Student"))
+    {
+        <h1 class="display-4">Student Profile</h1>
+    }
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <h1 class="display-4">Admin Profile</h1>
+    }
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <h1 class="display-4">Welcome</h1>
+    }
+</div>

@@ -1,0 +1,65 @@
+﻿@using MVC_workshop.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<MVC_workshop.Models.Course>
+@inject UserManager<MVC_workshopUser> UserManager
+
+
+@{
+    ViewData["Title"] = "CoursesTeacher";
+}
+
+<h1 align="center">@ViewBag.Teacher - courses</h1>
+<br/>
+<form asp-controller="Courses" asp-action="CoursesTeacher" asp-route-userID=@UserManager.GetUserId(User)>
+    <p>
+        Search: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Credits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Semester)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Programme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EducationLevel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Programme)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EducationLevel)
+            </td>
+            <td>
+                <a asp-controller="Enrollments" asp-action="StudentsEnCourse" asp-route-id="@item.Id" asp-route-tname="@ViewBag.Teacher">Students</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
